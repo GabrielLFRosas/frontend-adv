@@ -39,7 +39,7 @@ export default function CreateUser() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await createUser(data);
+      await createUser(data); 
       router.push("/customers");
     } catch (err) {
       setError("Erro ao criar cliente");
