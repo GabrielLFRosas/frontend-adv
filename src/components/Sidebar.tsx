@@ -5,12 +5,13 @@ import { FiDollarSign, FiFileText, FiHome, FiLogOut, FiUser, FiUsers } from "rea
 
 import { useAuth } from "contexts/AuthContext";
 
-import Logo from '../../public/logo2.png'
+import Logo from "../../public/logo2.png";
 
 export default function Sidebar() {
   const router = useRouter();
   const { logout } = useAuth();
   const currentPath = router.pathname;
+  const { user } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -40,7 +41,8 @@ export default function Sidebar() {
                 href="/processes"
                 className={`flex items-center p-4 hover:bg-white hover:text-blue-800 ${
                   currentPath === "/processes" ||
-                  currentPath === "/processes/create" || currentPath === "/processes/edit/[id]"
+                  currentPath === "/processes/create" ||
+                  currentPath === "/processes/edit/[id]"
                     ? "bg-white text-blue-800"
                     : ""
                 }`}
@@ -53,7 +55,9 @@ export default function Sidebar() {
               <Link
                 href="/fees"
                 className={`flex items-center p-4 hover:bg-white hover:text-blue-800 ${
-                  currentPath === "/fees" || currentPath === "/fees/create" || currentPath === "/fees/edit/[id]"
+                  currentPath === "/fees" ||
+                  currentPath === "/fees/create" ||
+                  currentPath === "/fees/edit/[id]"
                     ? "bg-white text-blue-800"
                     : ""
                 }`}
@@ -77,19 +81,23 @@ export default function Sidebar() {
                 <span>Clientes</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/users"
-                className={`flex items-center p-4 hover:bg-white hover:text-blue-800  ${
-                  currentPath === "/users" || currentPath === "/users/create" || currentPath === "/users/edit/[id]"
-                    ? "bg-white text-blue-800"
-                    : ""
-                }`}
-              >
-                <FiUser className="mr-3" />
-                <span>Usuários</span>
-              </Link>
-            </li>
+            {user.role === "ADMIN" && (
+              <li>
+                <Link
+                  href="/users"
+                  className={`flex items-center p-4 hover:bg-white hover:text-blue-800  ${
+                    currentPath === "/users" ||
+                    currentPath === "/users/create" ||
+                    currentPath === "/users/edit/[id]"
+                      ? "bg-white text-blue-800"
+                      : ""
+                  }`}
+                >
+                  <FiUser className="mr-3" />
+                  <span>Usuários</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
