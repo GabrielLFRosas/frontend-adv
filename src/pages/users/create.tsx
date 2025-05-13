@@ -1,10 +1,12 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { User } from "../../types";
-import ProtectedRoute from "../../components/ProtectedRoute";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
 import Sidebar from "components/Sidebar";
 import { createUser } from "services/user";
-import { Controller, useForm } from "react-hook-form";
+
+import ProtectedRoute from "../../components/ProtectedRoute";
+import { User } from "../../types";
 
 interface CreateUserProps {
   user: User | null;
@@ -37,7 +39,7 @@ export default function CreateUser() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await createUser({  });
+      await createUser(data);
       router.push("/customers");
     } catch (err) {
       setError("Erro ao criar cliente");
