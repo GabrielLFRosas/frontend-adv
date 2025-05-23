@@ -34,30 +34,30 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchFinancialSummary = async () => {
-    setIsLoading(true);
-    try {
-      const response = await api.get(
-        "/dashboard/financeiro",
-        {
-          params: { month, year },
-        }
-      );
-      setSummary(response.data);
-    } catch (err) {
-      setError("Erro ao carregar dados financeiros");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const fetchFinancialSummary = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await api.get(
+  //       "/dashboard/financeiro",
+  //       {
+  //         params: { month, year },
+  //       }
+  //     );
+  //     setSummary(response.data);
+  //   } catch (err) {
+  //     setError("Erro ao carregar dados financeiros");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchFinancialSummary();
-  }, [month, year]);
+  // useEffect(() => {
+  //   fetchFinancialSummary();
+  // }, [month, year]);
 
-  const handleFilter = () => {
-    fetchFinancialSummary();
-  };
+  // const handleFilter = () => {
+  //   fetchFinancialSummary();
+  // };
 
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const years = Array.from(
@@ -107,7 +107,7 @@ export default function Home() {
                         ))}
                       </select>
                       <button
-                        onClick={handleFilter}
+                        // onClick={handleFilter}
                         className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
                       >
                         Filtrar

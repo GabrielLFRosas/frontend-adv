@@ -112,10 +112,10 @@ export default function EditProcess() {
         clienteId: data.clienteId,
         descricao: data.descricao,
         valorCausa: parseFloat(String(data.valorCausa)).toFixed(2),
-        percentualParticipacao: data.percentualParticipacao,
+        percentualParticipacao: Number(data.percentualParticipacao),
         status: data.status,
         dataVencimento: data.dataVencimento,
-        nrParcelas: data.nrParcelas || 1,
+        nrParcelas: Number(data.nrParcelas) || 1,
       });
       router.push("/processes");
     } catch (err) {

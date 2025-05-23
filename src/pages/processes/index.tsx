@@ -107,6 +107,7 @@ export default function Processes() {
                         <th className="border p-2">Descrição</th>
                         <th className="border p-2">Valor da Causa</th>
                         <th className="border p-2">Número de parcelas</th>
+                        <th className="border p-2">Participação</th>
                         <th className="border p-2">Status</th>
                         <th className="border p-2">Data de vencimento</th>
                         <th className="border p-2">Advogados</th>
@@ -123,12 +124,13 @@ export default function Processes() {
                           <td className="border p-2">{process.descricao}</td>
                           <td className="border p-2">{process.valorCausa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                           <td className="border p-2">{process.nrParcelas}</td>
+                          <td className="border p-2">{process.percentualParticipacao} %</td>
                           <td className="border p-2">{getLabelStatus(process.status)}</td>
                           <td className="border p-2">{formatDate(process.dataVencimento)}</td>
                           <td className="border p-2">
                             {process.advogados?.map((adv: any, idx: number) => (
                               <div key={idx}>
-                                {adv.nome} ({adv.percentualParticipacao}%)
+                                {adv.nome} 
                               </div>
                             ))}
                           </td>
