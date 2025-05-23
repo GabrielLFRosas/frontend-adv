@@ -51,21 +51,7 @@ export default function Sidebar() {
                 <span>Processos</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/fees"
-                className={`flex items-center p-4 hover:bg-white hover:text-blue-800 ${
-                  currentPath === "/fees" ||
-                  currentPath === "/fees/create" ||
-                  currentPath === "/fees/edit/[id]"
-                    ? "bg-white text-blue-800"
-                    : ""
-                }`}
-              >
-                <FiDollarSign className="mr-3" />
-                <span>Honorários</span>
-              </Link>
-            </li>
+            
             <li>
               <Link
                 href="/customers"

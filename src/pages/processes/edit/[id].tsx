@@ -21,8 +21,8 @@ interface FormData {
   valorCausa: number;
   percentualParticipacao: number;
   status: "EM_ANDAMENTO" | "ENCERRADO";
-  dataInicio: string;
-  dataEncerramento?: string;
+  dataVencimento: string;
+  nrParcelas?: number;
 }
 
 export default function EditProcess() {
@@ -45,8 +45,8 @@ export default function EditProcess() {
       valorCausa: 0,
       percentualParticipacao: 0,
       status: "EM_ANDAMENTO" as "EM_ANDAMENTO",
-      dataInicio: "",
-      dataEncerramento: "",
+      dataVencimento: "",
+      nrParcelas: 1,
     },
   });
   const [tipos, setTipos] = useState<any[]>([]);
@@ -91,10 +91,8 @@ export default function EditProcess() {
             valorCausa: process.valorCausa,
             percentualParticipacao: process.advogados[0].percentualParticipacao,
             status: process.status,
-            dataInicio: process.dataInicio.split("T")[0], 
-            dataEncerramento: process.dataEncerramento
-              ? process.dataEncerramento.split("T")[0]
-              : "",
+            dataVencimento: process.dataVencimento,
+            nrParcelas: process.nrParcelas
           });
         } catch (err) {
           setError("Erro ao carregar processo");
@@ -116,8 +114,8 @@ export default function EditProcess() {
         valorCausa: parseFloat(String(data.valorCausa)).toFixed(2),
         percentualParticipacao: data.percentualParticipacao,
         status: data.status,
-        dataInicio: data.dataInicio,
-        dataEncerramento: data.dataEncerramento || undefined,
+        dataVencimento: data.dataVencimento,
+        nrParcelas: data.nrParcelas || 1,
       });
       router.push("/processes");
     } catch (err) {
@@ -280,6 +278,25 @@ export default function EditProcess() {
                   )}
                 </div>
                 <div>
+                  <label className="block text-gray-700">Número de parcelas</label>
+                  <input
+                    type="number"
+                    {...register("nrParcelas", {
+                      min: {
+                        value: 0,
+                        message: "Número de parcelas não pode ser negativo",
+                      },
+                    })}
+                    className="w-full p-2 input-form"
+                    step="1"
+                  />
+                  {errors.nrParcelas && (
+                    <p className="text-red-500 text-sm">
+                      {errors.nrParcelas.message}
+                    </p>
+                  )}
+                </div>
+                <div>
                   <label className="block text-gray-700">
                     Percentual de Participação (%)
                   </label>
@@ -328,27 +345,18 @@ export default function EditProcess() {
                   <label className="block text-gray-700">Data de Início</label>
                   <input
                     type="date"
-                    {...register("dataInicio", {
-                      required: "Data de início é obrigatória",
+                    {...register("dataVencimento", {
+                      required: "Data de vencimento é obrigatória",
                     })}
                     className="w-full p-2 input-form"
                   />
-                  {errors.dataInicio && (
+                  {errors.dataVencimento && (
                     <p className="text-red-500 text-sm">
-                      {errors.dataInicio.message}
+                      {errors.dataVencimento.message}
                     </p>
                   )}
                 </div>
-                <div>
-                  <label className="block text-gray-700">
-                    Data de Encerramento (Opcional)
-                  </label>
-                  <input
-                    type="date"
-                    {...register("dataEncerramento")}
-                    className="w-full p-2 input-form"
-                  />
-                </div>
+                
                 <div className="flex justify-end items-end">
                   <button
                     type="submit"

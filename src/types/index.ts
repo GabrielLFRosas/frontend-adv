@@ -15,8 +15,8 @@ export interface Process {
   valorCausa: any;
   percentualParticipacao: number;
   status: 'EM_ANDAMENTO' | 'ENCERRADO';
-  dataInicio: string;
-  dataEncerramento?: string;
+  dataVencimento: string;
+  nrParcelas?: string;
 }
 
 export interface Fee {
