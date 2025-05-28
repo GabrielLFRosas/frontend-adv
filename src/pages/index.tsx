@@ -203,7 +203,7 @@ export default function Home() {
                                   Valor
                                 </th>
                                 <th className="border p-2 text-left text-gray-700">
-                                  Data Prevista
+                                  Data de vencimento
                                 </th>
                                 <th className="border p-2 text-left text-gray-700">
                                   Pago
