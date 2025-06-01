@@ -14,8 +14,8 @@ export const findCustomer = async (id: string): Promise<any> => {
   return response.data;
 };
 
-export const createCustomer = async (fee: Omit<any, "id">): Promise<any> => {
-  const response = await api.post("/fees", fee);
+export const createCustomer = async (customer: Omit<any, "id">): Promise<any> => {
+  const response = await api.post("/cliente", customer);
   return response.data;
 };
 
