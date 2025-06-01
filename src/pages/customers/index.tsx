@@ -18,16 +18,30 @@ export default function Customers() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [fees, setFees] = useState<any[]>([]);
+  const [pagination, setPagination] = useState<{
+    page: number;
+    total: number;
+    totalPages: number;
+  }>({ page: 1, total: 0, totalPages: 0 });
+
+  const handlePageChange = (newPage: number) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+  };
 
   useEffect(() => {
     const fetchCustomers = async () => {
       setIsLoading(true);
-      const data = await getCustomers();
-      setFees(data);
+      const data = await getCustomers({ page: pagination.page, limit: 10 });
+      setFees(data.customers);
+      setPagination({
+        page: data.page,
+        total: data.total,
+        totalPages: data.totalPages,
+      });
       setIsLoading(false);
     };
     fetchCustomers();
-  }, []);
+  }, [pagination.page]);
 
   const handleDelete = async (id: string) => {
     // await deleteFee(id);
@@ -92,6 +106,34 @@ export default function Customers() {
                     ))}
                   </tbody>
                 </table>
+                {pagination && (
+                  <div className="flex justify-between items-center mt-4">
+                    <div>
+                      <p className="text-gray-600">
+                        Mostrando {fees.length} de {pagination.total} clientes
+                      </p>
+                    </div>
+                    <div className="space-x-2">
+                      <button
+                        disabled={pagination.page === 1}
+                        onClick={() => handlePageChange(pagination.page - 1)}
+                        className="p-2 bg-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-300"
+                      >
+                        Anterior
+                      </button>
+                      <span>
+                        Página {pagination.page} de {pagination.totalPages}
+                      </span>
+                      <button
+                        disabled={pagination.page === pagination.totalPages}
+                        onClick={() => handlePageChange(pagination.page + 1)}
+                        className="p-2 bg-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-300"
+                      >
+                        Próximo
+                      </button>
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </div>

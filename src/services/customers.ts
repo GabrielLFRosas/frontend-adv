@@ -1,8 +1,8 @@
 import api from "./api";
 
-export const getCustomers = async (): Promise<any[]> => {
-  const response = await api.get("/cliente");
-  return response.data;
+export const getCustomers = async ({ page = 1, limit = 10 }: { page?: number; limit?: number }): Promise<any> => {
+  const {data} = await api.get(`/cliente?page=${page}&limit=${limit}`);
+  return data;
 };
 
 export const findCustomer = async (id: string): Promise<any> => {
