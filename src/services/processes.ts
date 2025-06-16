@@ -53,7 +53,7 @@ export const getEscritorios = async (): Promise<any[]> => {
   return response.data;
 };
 
-export const getClientes = async (): Promise<any[]> => {
+export const getClientes = async (): Promise<any> => {
   const response = await api.get("/cliente");
   return response.data;
 };

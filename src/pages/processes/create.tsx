@@ -68,7 +68,7 @@ export default function CreateProcess() {
         setTipos(tiposData);
         setAdvogados(advogadosData);
         setEscritorios(escritoriosData);
-        setClientes(clientesData);
+        setClientes(clientesData.customers);
       } catch (err) {
         setError("Erro ao carregar dados");
       }
@@ -201,7 +201,7 @@ export default function CreateProcess() {
                     render={({ field }) => (
                       <select {...field} className="w-full p-2 input-form">
                         <option value="">Selecione um cliente</option>
-                        {clientes.map((cliente) => (
+                        {clientes?.map((cliente) => (
                           <option key={cliente.id} value={cliente.id}>
                             {cliente.nome}
                           </option>
